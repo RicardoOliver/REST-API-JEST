@@ -1,0 +1,25 @@
+version: '3.8'
+
+networks:
+  default:
+    external: true
+    name: api_rest_jest_cypress_default
+
+services:
+  api:
+    build: .
+    ports:
+      - '3001:3000'
+    volumes:
+      - .:/app
+    command: node app.js
+    networks:
+      - default
+
+  test:
+    build: .
+    volumes:
+      - .:/app
+    command: npm test
+    networks:
+      - default
