@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
     "supertest": "^7.1.0"
   },
   "dependencies": {
@@ -10,6 +11,11 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      ["jest-junit", { "outputDirectory": "test-results" }]
+    ]
   }
 }
-
