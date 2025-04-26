@@ -4,13 +4,11 @@ const jwt = require('jsonwebtoken');
 const app = express();
 app.use(express.json());
 
-const SECRET = 'chave-super-secreta'; // Em produção, use variáveis de ambiente
+const SECRET = 'chave-super-secreta';
 
-// Simulação de login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  // Exemplo: login fixo
   if (username === 'admin' && password === '1234') {
     const token = jwt.sign({ user: username }, SECRET, { expiresIn: '1h' });
     return res.json({ token });
@@ -19,7 +17,6 @@ app.post('/login', (req, res) => {
   res.status(401).json({ error: 'Credenciais inválidas' });
 });
 
-// Middleware de autenticação
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
   const token = authHeader?.split(' ')[1];
@@ -35,15 +32,8 @@ function authMiddleware(req, res, next) {
   }
 }
 
-// Rota protegida
 app.get('/dashboard', authMiddleware, (req, res) => {
   res.json({ message: `Bem-vindo, ${req.user}!` });
-});
-
-// Configuração do servidor para rodar na porta 3000
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
 });
 
 module.exports = app;

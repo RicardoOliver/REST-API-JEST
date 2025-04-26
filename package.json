@@ -9,6 +9,7 @@
     "jsonwebtoken": "^9.0.2"
   },
   "scripts": {
+    "start": "node server.js",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
